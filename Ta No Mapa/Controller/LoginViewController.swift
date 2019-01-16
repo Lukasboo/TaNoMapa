@@ -35,9 +35,9 @@ class LoginViewController: UIViewController {
                 
                     if error != nil {
                         DispatchQueue.main.async {
-                            Toast.toastMessage("Usuário ou Senha inválido!")
-                            self.shadowView.isHidden = true
-                            self.activityIndicator.stopAnimating()
+                            Toast.toastMessage((error?.localizedDescription)!)
+                            /*self.shadowView.isHidden = true
+                            self.activityIndicator.stopAnimating()*/
                         }
                     } else {
                         DispatchQueue.main.async {
@@ -46,8 +46,10 @@ class LoginViewController: UIViewController {
                             self.present(newViewController, animated: true, completion: nil)
                         }
                     }
-                    self.shadowView.isHidden = true
-                    self.activityIndicator.stopAnimating()
+                    DispatchQueue.main.async {
+                        self.shadowView.isHidden = true
+                        self.activityIndicator.stopAnimating()
+                    }
                 }
             /*} else {
                 self.shadowView.isHidden = true

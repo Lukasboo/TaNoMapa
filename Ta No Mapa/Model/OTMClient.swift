@@ -90,7 +90,7 @@ class OTMClient : NSObject {
     
     func login(_ method: String, username: String, password: String, result: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
-        
+            print("{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}")
             print(username)
             print(password)
             let request = NSMutableURLRequest(url: otmURLFromParameters())
@@ -121,7 +121,8 @@ class OTMClient : NSObject {
                     sendError("Invalid credentials")
                     return
                 }
-                else {
+                
+                guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                     sendError("Your request returned a status code other than 2xx!")
                     return
                 }
