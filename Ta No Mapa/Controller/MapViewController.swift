@@ -13,8 +13,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var shadowView: UIView!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -68,15 +68,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 annotations.append(annotation)
          
             } catch {
-                self.shadowView.isHidden = true
-                self.activityIndicator.stopAnimating()
                 Toast.toastMessage("Ocorreu um erro. Tente mais tarde novamente!")
             }
             self.mapView.addAnnotations(annotations)
             
         }
-        shadowView.isHidden = true
-        activityIndicator.stopAnimating()
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -94,7 +90,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         else {
             pinView!.annotation = annotation
         }
-        
         return pinView
     }
     
@@ -102,23 +97,27 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.openURL(URL(string: toOpen)!)
+                if !toOpen.isEmpty || toOpen == "" {
+                    app.openURL(URL(string: toOpen)!)
+                }
             }
         }
     }
     
     func getStudentsInformation() {
-        shadowView.isHidden = false
-        activityIndicator.startAnimating()
+        self.shadowView.isHidden = false
+        self.activityIndicator.startAnimating()
         var result: [[String : AnyObject]]?
         let order = "-updatedAt" as! AnyObject
         ParseClient.sharedInstance().taskForGETMethod2("GET") { (success, error) in
             if error == nil {
-                self.setupMap(locations: success!)
+                self.setupMap(locations: success!)                
             } else {
+                Toast.toastMessage("Ocorreu um erro ao tentar carregar as informações!")
+            }
+            DispatchQueue.main.async {
                 self.shadowView.isHidden = true
                 self.activityIndicator.stopAnimating()
-                Toast.toastMessage("Ocorreu um erro ao tentar carregar as informações!")
             }
         }
     }
@@ -131,8 +130,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         OTMClient.sharedInstance().logout { (result) in
             if result {
                 Toast.toastMessage("Sucesso ao deslogar")
-                let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginNavigationController")
-                self.present(newViewController!, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }                
             } else {
                 Toast.toastMessage("Ocorreu um erro ao tentar deslogar. Tente novamente mais tarde!")
             }

@@ -21,6 +21,10 @@ class AddLocationViewController: UIViewController {
         super.viewDidLoad()        
     }
    
+    override func viewWillAppear(_ animated: Bool) {
+        shadowView.isHidden = true
+        activityIndicator.stopAnimating()
+    }
 
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -37,31 +41,27 @@ class AddLocationViewController: UIViewController {
                 let first_name = (success!["first_name"]!)!
                 print((success!["last_name"]!)!)
                 let last_name = (success!["last_name"]!)!
+                let geocoder = CLGeocoder()                
                 let mapString = self.locationText.text!
                 let mediaURL = self.linkText.text!
-                let geocoder = CLGeocoder()
-                
+                                
                 geocoder.geocodeAddressString(mapString, completionHandler: {(placemarks, error) in
                     if let placemark = placemarks?[0] {
                         let latitude = placemark.location!.coordinate.latitude
                         let longitude = placemark.location!.coordinate.longitude
-                        ParseClient.sharedInstance().addLocation("POST", firstName: first_name as! String, lastName: last_name as! String, mapString: mapString, mediaURL: mediaURL, latitude: latitude, longitude: longitude, result: { (success, error) in
-                            DispatchQueue.main.async {
-                                self.shadowView.isHidden = true
-                                self.activityIndicator.stopAnimating()
-                                if error == nil {
-                                    Toast.toastMessage("Sucesso ao inserir a localização!")
-                                    self.dismiss(animated: true, completion: nil)
-                                } else {
-                                    Toast.toastMessage("Ocorreu um erro ao postar a localização!")
-                                }
-                                
-                            }
-                        })
+                        let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "PlaceLocationViewController") as! PlaceLocationViewController
+                        
+                        newViewController.mapString = mapString
+                        newViewController.first_name = first_name as! String
+                        newViewController.last_name = last_name as! String
+                        newViewController.mediaURL = mediaURL
+                        newViewController.latitude = latitude
+                        newViewController.longitude = longitude
+                        self.present(newViewController, animated: true, completion: nil)
                     } else {
                         self.shadowView.isHidden = true
-                        self.activityIndicator.stopAnimating()                        
-                        Toast.toastMessage(error as! String)
+                        self.activityIndicator.stopAnimating()
+                        Toast.toastMessage("\(error!.localizedDescription)")
                     }
                 })
                 

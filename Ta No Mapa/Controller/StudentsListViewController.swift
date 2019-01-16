@@ -50,6 +50,16 @@ class StudentsListViewController: UIViewController, UITableViewDelegate, UITable
         return cell
     }
   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let mediaURL = self.studentsInformation?.results?[indexPath.row].mediaURL
+            let app = UIApplication.shared
+            if let toOpen = mediaURL {
+                if let url = URL(string: toOpen) {
+                    app.openURL(URL(string: toOpen)!)
+                }
+        }
+    }
 
     func getStudentsInformation() {
         var result: [[String : AnyObject]]?
@@ -78,7 +88,16 @@ class StudentsListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func logout(_ sender: UIBarButtonItem) {
-        
+        OTMClient.sharedInstance().logout { (result) in
+            if result {
+                Toast.toastMessage("Sucesso ao deslogar")
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }  
+            } else {
+                Toast.toastMessage("Ocorreu um erro ao tentar deslogar. Tente novamente mais tarde!")
+            }
+        }
     }
     
 }

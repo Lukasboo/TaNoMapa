@@ -19,31 +19,40 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()        
-    }    
+    }
     
-    @IBAction func loginPressed(_ sender: UIButton) {
+    override func viewWillAppear(_ animated: Bool) {
+        shadowView.isHidden = true
+        activityIndicator.isHidden = true
+    }
         
+    @IBAction func loginPressed(_ sender: UIButton) {
         shadowView.isHidden = false
         activityIndicator.startAnimating()
         if !(emailText.text?.isEmpty)! && !(passwordText.text?.isEmpty)! {
-            OTMClient.sharedInstance().login("POST", username: emailText.text!, password: passwordText.text!) { (success, error) in
-            
-                if error != nil {
-                    DispatchQueue.main.async {
-                        Toast.toastMessage("Usuário ou Senha inválido!")
-                        self.shadowView.isHidden = true
-                        self.activityIndicator.stopAnimating()
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let newViewController = storyboard.instantiateViewController(withIdentifier: "MapTabBarController")
-                        self.present(newViewController, animated: true, completion: nil)
-                    }
-                }
-                self.shadowView.isHidden = true
-                self.activityIndicator.stopAnimating()
+            if Functions.isInternetAvailable() {
+                OTMClient.sharedInstance().login("POST", username: emailText.text!, password: passwordText.text!) { (success, error) in
                 
+                    if error != nil {
+                        DispatchQueue.main.async {
+                            Toast.toastMessage("Usuário ou Senha inválido!")
+                            self.shadowView.isHidden = true
+                            self.activityIndicator.stopAnimating()
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let newViewController = storyboard.instantiateViewController(withIdentifier: "MapTabBarController")
+                            self.present(newViewController, animated: true, completion: nil)
+                        }
+                    }
+                    self.shadowView.isHidden = true
+                    self.activityIndicator.stopAnimating()
+                }
+            } else {
+                self.shadowView.isHidden = true
+                Toast.toastMessage("Sem conexão com a Internet!")
+                self.activityIndicator.stopAnimating()
             }
         } else {
             self.shadowView.isHidden = true

@@ -71,8 +71,8 @@
                                     <action selector="signupPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ohM-Qm-OIw"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l2S-Ws-BCV">
-                                <rect key="frame" x="0.0" y="0.0" width="49" height="667"/>
+                            <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2S-Ws-BCV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="tnx-6W-CO9">
                                         <rect key="frame" x="169" y="315" width="37" height="37"/>
@@ -113,10 +113,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Tá no Mapa" id="11t-xR-o6s"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="tnx-6W-CO9" id="7CP-ez-ztO"/>
+                        <outlet property="activityIndicator" destination="tnx-6W-CO9" id="Nkk-VW-n8d"/>
                         <outlet property="emailText" destination="EOy-09-4Sh" id="ThJ-Lb-Wk2"/>
                         <outlet property="passwordText" destination="r2N-LI-1UW" id="vgr-uY-31J"/>
-                        <outlet property="shadowView" destination="l2S-Ws-BCV" id="f7n-lu-NRz"/>
+                        <outlet property="shadowView" destination="l2S-Ws-BCV" id="fIL-Yl-4M0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -390,22 +390,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WgF-Y7-gHj">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="LMV-86-R62"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Adicionar Localização" id="RR4-Zn-M61">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="M5B-Yj-eaV">
-                                            <connections>
-                                                <action selector="cancel:" destination="Eaq-n5-Bs9" id="c6M-vA-wjM"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ribeirão Preto, SP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-WU-J69">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cidade" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-WU-J69">
                                 <rect key="frame" x="20" y="104" width="335" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="dwA-e9-ivy"/>
@@ -414,7 +399,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="http:\\www.google.com.br" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qm7-IE-ozt">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qm7-IE-ozt">
                                 <rect key="frame" x="20" y="174" width="335" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -430,17 +415,32 @@
                                     <action selector="findLocation:" destination="Eaq-n5-Bs9" eventType="touchUpInside" id="Y5b-Hg-IwW"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJ1-qN-Kz6">
-                                <rect key="frame" x="0.0" y="0.0" width="19" height="667"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXK-Pi-Aa2">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="hMk-TV-Xx2"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Adicionar Localização" id="HNO-0q-Yc8">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="fO1-jU-XC2">
+                                            <connections>
+                                                <action selector="cancel:" destination="Eaq-n5-Bs9" id="In8-C0-sY9"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <view hidden="YES" alpha="0.40000000596046448" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oA-ON-ktq">
+                                <rect key="frame" x="0.0" y="0.0" width="54" height="667"/>
                                 <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="CMn-03-IEl">
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="FYO-sx-UaQ">
                                         <rect key="frame" x="169" y="315" width="37" height="37"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="CMn-03-IEl" firstAttribute="centerY" secondItem="FJ1-qN-Kz6" secondAttribute="centerY" id="QJw-Hz-LbQ"/>
-                                    <constraint firstItem="CMn-03-IEl" firstAttribute="centerX" secondItem="FJ1-qN-Kz6" secondAttribute="centerX" id="acp-6w-JIP"/>
+                                    <constraint firstItem="FYO-sx-UaQ" firstAttribute="centerY" secondItem="5oA-ON-ktq" secondAttribute="centerY" id="9sN-qC-X5a"/>
+                                    <constraint firstItem="FYO-sx-UaQ" firstAttribute="centerX" secondItem="5oA-ON-ktq" secondAttribute="centerX" id="FBl-av-MaA"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -448,35 +448,115 @@
                         <constraints>
                             <constraint firstItem="wG1-I7-cgP" firstAttribute="trailing" secondItem="pMT-WU-J69" secondAttribute="trailing" constant="20" id="0Da-4n-knC"/>
                             <constraint firstItem="68Q-HO-ZRs" firstAttribute="height" secondItem="Qm7-IE-ozt" secondAttribute="height" id="1kJ-Xm-Sod"/>
+                            <constraint firstItem="bXK-Pi-Aa2" firstAttribute="leading" secondItem="wG1-I7-cgP" secondAttribute="leading" id="2Yk-uO-GnB"/>
+                            <constraint firstItem="bXK-Pi-Aa2" firstAttribute="top" secondItem="wG1-I7-cgP" secondAttribute="top" id="7Uh-sj-Tbk"/>
+                            <constraint firstItem="pMT-WU-J69" firstAttribute="top" secondItem="bXK-Pi-Aa2" secondAttribute="bottom" constant="40" id="8D9-1l-X8a"/>
                             <constraint firstItem="68Q-HO-ZRs" firstAttribute="top" secondItem="Qm7-IE-ozt" secondAttribute="bottom" constant="50" id="8WZ-aV-KFm"/>
                             <constraint firstItem="Qm7-IE-ozt" firstAttribute="top" secondItem="pMT-WU-J69" secondAttribute="bottom" constant="40" id="9DO-Yl-doV"/>
-                            <constraint firstAttribute="trailing" secondItem="FJ1-qN-Kz6" secondAttribute="trailing" id="9St-FY-7DC"/>
-                            <constraint firstItem="WgF-Y7-gHj" firstAttribute="leading" secondItem="wG1-I7-cgP" secondAttribute="leading" id="DKX-CF-0sN"/>
+                            <constraint firstItem="5oA-ON-ktq" firstAttribute="trailing" secondItem="wG1-I7-cgP" secondAttribute="trailing" id="C6d-Lr-1rN"/>
                             <constraint firstItem="68Q-HO-ZRs" firstAttribute="width" secondItem="Qm7-IE-ozt" secondAttribute="width" id="KJe-zc-iJ1"/>
-                            <constraint firstItem="FJ1-qN-Kz6" firstAttribute="top" secondItem="b6H-PW-6QS" secondAttribute="top" id="Mt3-ge-g8D"/>
                             <constraint firstItem="Qm7-IE-ozt" firstAttribute="centerX" secondItem="pMT-WU-J69" secondAttribute="centerX" id="a2o-bz-0pW"/>
+                            <constraint firstItem="bXK-Pi-Aa2" firstAttribute="trailing" secondItem="wG1-I7-cgP" secondAttribute="trailing" id="bVd-tD-Fyw"/>
                             <constraint firstItem="68Q-HO-ZRs" firstAttribute="centerX" secondItem="Qm7-IE-ozt" secondAttribute="centerX" id="bge-LJ-jEZ"/>
                             <constraint firstItem="Qm7-IE-ozt" firstAttribute="height" secondItem="pMT-WU-J69" secondAttribute="height" id="f7G-sd-Fxh"/>
-                            <constraint firstItem="WgF-Y7-gHj" firstAttribute="trailing" secondItem="wG1-I7-cgP" secondAttribute="trailing" id="hY7-IV-io6"/>
                             <constraint firstItem="Qm7-IE-ozt" firstAttribute="width" secondItem="pMT-WU-J69" secondAttribute="width" id="hgL-mQ-Kxf"/>
-                            <constraint firstItem="pMT-WU-J69" firstAttribute="top" secondItem="WgF-Y7-gHj" secondAttribute="bottom" constant="40" id="mfL-cf-Xww"/>
-                            <constraint firstAttribute="bottom" secondItem="FJ1-qN-Kz6" secondAttribute="bottom" id="mfm-uy-DkG"/>
+                            <constraint firstItem="5oA-ON-ktq" firstAttribute="top" secondItem="b6H-PW-6QS" secondAttribute="top" id="ksK-dr-PdM"/>
+                            <constraint firstItem="5oA-ON-ktq" firstAttribute="bottom" secondItem="wG1-I7-cgP" secondAttribute="bottom" id="oVh-6H-1Q7"/>
                             <constraint firstItem="pMT-WU-J69" firstAttribute="leading" secondItem="wG1-I7-cgP" secondAttribute="leading" constant="20" id="rNR-kN-e4d"/>
-                            <constraint firstItem="WgF-Y7-gHj" firstAttribute="top" secondItem="wG1-I7-cgP" secondAttribute="top" id="s56-RV-5zi"/>
-                            <constraint firstItem="FJ1-qN-Kz6" firstAttribute="leading" secondItem="b6H-PW-6QS" secondAttribute="leading" id="ysT-Rz-KKD"/>
+                            <constraint firstItem="5oA-ON-ktq" firstAttribute="leading" secondItem="wG1-I7-cgP" secondAttribute="leading" id="t6V-Po-NzA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wG1-I7-cgP"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="CMn-03-IEl" id="8gG-w2-9Nb"/>
+                        <outlet property="activityIndicator" destination="FYO-sx-UaQ" id="WGQ-EU-pt9"/>
                         <outlet property="linkText" destination="Qm7-IE-ozt" id="WKD-pF-I4f"/>
                         <outlet property="locationText" destination="pMT-WU-J69" id="zR5-Am-LNM"/>
-                        <outlet property="shadowView" destination="FJ1-qN-Kz6" id="o6d-dv-oGb"/>
+                        <outlet property="shadowView" destination="5oA-ON-ktq" id="XaV-uS-rW3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xTy-5u-nhD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2562.4000000000001" y="497.90104947526243"/>
+        </scene>
+        <!--Place Location View Controller-->
+        <scene sceneID="wnh-Jv-L4S">
+            <objects>
+                <viewController storyboardIdentifier="PlaceLocationViewController" id="vGv-Hv-aZe" customClass="PlaceLocationViewController" customModule="Ta_No_Mapa" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="stJ-82-gwe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Mo8-39-JMd">
+                                <rect key="frame" x="16" y="84" width="343" height="525"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shs-lO-Ooe">
+                                <rect key="frame" x="16" y="617" width="343" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PcO-Ky-z07"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Adicionar Localização">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addLocation:" destination="vGv-Hv-aZe" eventType="touchUpInside" id="aBH-67-vJe"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJ2-Z7-AVk">
+                                <rect key="frame" x="0.0" y="0.0" width="49" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Smm-Dv-rrs">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WgF-Y7-gHj">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LMV-86-R62"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="m0G-yY-5A2"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Adicionar Localização" id="RR4-Zn-M61">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="M5B-Yj-eaV">
+                                            <connections>
+                                                <action selector="cancel:" destination="vGv-Hv-aZe" id="osf-qh-EEH"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Shs-lO-Ooe" firstAttribute="top" secondItem="Mo8-39-JMd" secondAttribute="bottom" constant="8" id="5Ux-4f-g55"/>
+                            <constraint firstItem="Mo8-39-JMd" firstAttribute="top" secondItem="WgF-Y7-gHj" secondAttribute="bottom" constant="20" id="GrS-Cj-nlh"/>
+                            <constraint firstItem="Smm-Dv-rrs" firstAttribute="centerX" secondItem="stJ-82-gwe" secondAttribute="centerX" id="HCV-Wb-vGW"/>
+                            <constraint firstItem="WgF-Y7-gHj" firstAttribute="top" secondItem="kHh-tR-e7f" secondAttribute="top" id="IfC-Bk-aAI"/>
+                            <constraint firstItem="SJ2-Z7-AVk" firstAttribute="leading" secondItem="stJ-82-gwe" secondAttribute="leading" id="Jn6-as-dK1"/>
+                            <constraint firstItem="kHh-tR-e7f" firstAttribute="bottom" secondItem="Shs-lO-Ooe" secondAttribute="bottom" constant="20" id="NFw-27-vkk"/>
+                            <constraint firstItem="kHh-tR-e7f" firstAttribute="trailing" secondItem="Mo8-39-JMd" secondAttribute="trailing" constant="16" id="PYN-Ga-4TV"/>
+                            <constraint firstItem="WgF-Y7-gHj" firstAttribute="trailing" secondItem="kHh-tR-e7f" secondAttribute="trailing" id="V1F-8r-x4x"/>
+                            <constraint firstItem="Smm-Dv-rrs" firstAttribute="centerY" secondItem="stJ-82-gwe" secondAttribute="centerY" id="VxD-5J-2ET"/>
+                            <constraint firstItem="kHh-tR-e7f" firstAttribute="trailing" secondItem="Shs-lO-Ooe" secondAttribute="trailing" constant="16" id="YbF-GR-t4L"/>
+                            <constraint firstItem="WgF-Y7-gHj" firstAttribute="leading" secondItem="kHh-tR-e7f" secondAttribute="leading" id="a1v-18-2W1"/>
+                            <constraint firstItem="SJ2-Z7-AVk" firstAttribute="top" secondItem="stJ-82-gwe" secondAttribute="top" id="dgc-m0-g7I"/>
+                            <constraint firstItem="Shs-lO-Ooe" firstAttribute="leading" secondItem="kHh-tR-e7f" secondAttribute="leading" constant="16" id="gS4-6P-T0r"/>
+                            <constraint firstItem="Mo8-39-JMd" firstAttribute="leading" secondItem="kHh-tR-e7f" secondAttribute="leading" constant="16" id="hUR-jK-Tot"/>
+                            <constraint firstAttribute="trailing" secondItem="SJ2-Z7-AVk" secondAttribute="trailing" id="mba-Q1-hur"/>
+                            <constraint firstAttribute="bottom" secondItem="SJ2-Z7-AVk" secondAttribute="bottom" id="w3S-Ol-95q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kHh-tR-e7f"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Smm-Dv-rrs" id="v3T-n8-pYO"/>
+                        <outlet property="mapView" destination="Mo8-39-JMd" id="0bL-7f-GLC"/>
+                        <outlet property="shadowView" destination="SJ2-Z7-AVk" id="na1-dq-1em"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p4t-TR-keW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3274.4000000000001" y="497.90104947526243"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="O40-Ne-Oeh">
