@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
         shadowView.isHidden = false
         activityIndicator.startAnimating()
         if !(emailText.text?.isEmpty)! && !(passwordText.text?.isEmpty)! {
-            if Functions.isInternetAvailable() {
+            //if Functions.isInternetAvailable() {
                 OTMClient.sharedInstance().login("POST", username: emailText.text!, password: passwordText.text!) { (success, error) in
                 
                     if error != nil {
@@ -49,11 +49,11 @@ class LoginViewController: UIViewController {
                     self.shadowView.isHidden = true
                     self.activityIndicator.stopAnimating()
                 }
-            } else {
+            /*} else {
                 self.shadowView.isHidden = true
                 Toast.toastMessage("Sem conexão com a Internet!")
                 self.activityIndicator.stopAnimating()
-            }
+            }*/
         } else {
             self.shadowView.isHidden = true
             self.activityIndicator.stopAnimating()

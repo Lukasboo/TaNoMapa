@@ -89,53 +89,65 @@ class OTMClient : NSObject {
     }
     
     func login(_ method: String, username: String, password: String, result: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
-        print(username)
-        print(password)
-        let request = NSMutableURLRequest(url: otmURLFromParameters())
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
         
-        let session = URLSession.shared
-        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+        
+            print(username)
+            print(password)
+            let request = NSMutableURLRequest(url: otmURLFromParameters())
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
             
-            func sendError(_ error: String) {
-                print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                result(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
-            }
-            
-            if error != nil {
-                return
-            }
-            
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
-                return
-            }
-            
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range) /* subset response data! */
-            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!) //pegar key aqui
-            
-            var parsedResult: AnyObject! = nil
-            do {
-                parsedResult = try JSONSerialization.jsonObject(with: newData!, options: .allowFragments) as! AnyObject
-                let session = (parsedResult!["session"]!)! as! AnyObject
-                let userID = session["id"]! as! String
+            let session = URLSession.shared
+            let task = session.dataTask(with: request as URLRequest) { data, response, error in
                 
-                UserDefaults.standard.set(userID as! String, forKey: "userID")
-                result(parsedResult, nil)
-            } catch {
-                sendError("Could not parse the data as JSON: '\(data)'")                
+                func sendError(_ error: String) {
+                    print(error)
+                    let userInfo = [NSLocalizedDescriptionKey : error]
+                    result(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
+                }
+                
+                if !Functions.isInternetAvailable() {
+                    sendError("Sem conexão com a Internet!")
+                    return
+                }
+                
+                if error != nil {
+                    return
+                }
+                
+                if (response as? HTTPURLResponse)?.statusCode == 403 {
+                    sendError("Invalid credentials")
+                    return
+                }
+                else {
+                    sendError("Your request returned a status code other than 2xx!")
+                    return
+                }
+                
+                let range = Range(5..<data!.count)
+                let newData = data?.subdata(in: range) /* subset response data! */
+                print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!) //pegar key aqui
+                
+                var parsedResult: AnyObject! = nil
+                do {
+                    parsedResult = try JSONSerialization.jsonObject(with: newData!, options: .allowFragments) as! AnyObject
+                    let session = (parsedResult!["session"]!)! as! AnyObject
+                    let userID = session["id"]! as! String
+                    
+                    UserDefaults.standard.set(userID as! String, forKey: "userID")
+                    result(parsedResult, nil)
+                } catch {
+                    sendError("Could not parse the data as JSON: '\(data)'")
+                }
+                result(response, nil)
+                
             }
-            result(response, nil)
+            task.resume()
             
-        }
-        task.resume()
+            return task
         
-        return task
     }
     
     func logout(completion: @escaping(Bool)->()) {
